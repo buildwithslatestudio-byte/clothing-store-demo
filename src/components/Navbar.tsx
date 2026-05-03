@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -17,6 +18,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { totalItems, setIsCartOpen } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -28,7 +30,6 @@ export default function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -71,32 +72,53 @@ export default function Navbar() {
                   )}
                 </Link>
               ))}
+
+              {/* Cart button */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative text-charcoal/70 hover:text-charcoal transition-colors duration-300"
+                aria-label="Open cart"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 w-4.5 h-4.5 bg-beige text-white text-[10px] font-semibold rounded-full flex items-center justify-center min-w-[18px] h-[18px]">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
             </div>
 
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative w-10 h-10 flex items-center justify-center"
-              aria-label="Toggle menu"
-            >
-              <div className="flex flex-col gap-1.5 w-6">
-                <span
-                  className={`h-px bg-charcoal transition-all duration-300 origin-center ${
-                    isOpen ? "rotate-45 translate-y-[3.5px]" : ""
-                  }`}
-                />
-                <span
-                  className={`h-px bg-charcoal transition-all duration-300 ${
-                    isOpen ? "opacity-0 scale-x-0" : ""
-                  }`}
-                />
-                <span
-                  className={`h-px bg-charcoal transition-all duration-300 origin-center ${
-                    isOpen ? "-rotate-45 -translate-y-[3.5px]" : ""
-                  }`}
-                />
-              </div>
-            </button>
+            {/* Mobile: cart + hamburger */}
+            <div className="flex items-center gap-3 md:hidden">
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative w-10 h-10 flex items-center justify-center text-charcoal"
+                aria-label="Open cart"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute top-0.5 right-0.5 w-4.5 h-4.5 bg-beige text-white text-[10px] font-semibold rounded-full flex items-center justify-center min-w-[18px] h-[18px]">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="relative w-10 h-10 flex items-center justify-center"
+                aria-label="Toggle menu"
+              >
+                <div className="flex flex-col gap-1.5 w-6">
+                  <span className={`h-px bg-charcoal transition-all duration-300 origin-center ${isOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
+                  <span className={`h-px bg-charcoal transition-all duration-300 ${isOpen ? "opacity-0 scale-x-0" : ""}`} />
+                  <span className={`h-px bg-charcoal transition-all duration-300 origin-center ${isOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -133,7 +155,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Spacer so content doesn't go behind fixed navbar */}
+      {/* Spacer */}
       <div className="h-16 md:h-20" />
     </>
   );

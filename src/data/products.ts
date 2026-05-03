@@ -2,9 +2,20 @@ export interface Product {
   id: string;
   name: string;
   category: string;
-  price: string;
+  fabric: string;
+  price: number;
+  priceFormatted: string;
   image: string;
   slug: string;
+  sku: string;
+  sizes: string[];
+  colors: string[];
+  discount: number;
+  campaign: string;
+  description: string;
+  fabricDetails: { label: string; value: string }[];
+  careInstructions: string[];
+  tags: string[];
 }
 
 export const WHATSAPP_NUMBER = "923001234567";
@@ -17,60 +28,62 @@ export const categories = [
   { name: "Silk", slug: "silk", image: "/images/products/silk1.jpg", description: "Premium silk craftsmanship" },
 ];
 
+export const allSizes = ["XS", "S", "M", "L", "XL"];
+export const allColors = ["White", "Black", "Red", "Blue", "Green", "Pink", "Gold", "Beige", "Ivory", "Maroon"];
+export const allCampaigns = ["New Arrival", "Summer Collection", "Festive Edit", "Bridal Luxe"];
+export const discountOptions = [30, 40, 50, 70];
+export const priceRanges = [
+  { label: "Under Rs. 5,000", min: 0, max: 5000 },
+  { label: "Rs. 5,000 – 10,000", min: 5000, max: 10000 },
+  { label: "Rs. 10,000 – 15,000", min: 10000, max: 15000 },
+  { label: "Above Rs. 15,000", min: 15000, max: 100000 },
+];
+export const sortOptions = [
+  { label: "New Arrival", value: "new" },
+  { label: "Price: Low to High", value: "price-asc" },
+  { label: "Price: High to Low", value: "price-desc" },
+  { label: "Name: A–Z", value: "name-asc" },
+];
+
 export const products: Product[] = [
   // Chiffon
-  { id: "chiffon-1", name: "Emerald Chiffon Ensemble", category: "Chiffon", price: "Rs. 8,500", image: "/images/products/chiffon1.webp", slug: "emerald-chiffon-ensemble" },
-  { id: "chiffon-2", name: "Rose Gold Chiffon Dupatta", category: "Chiffon", price: "Rs. 6,200", image: "/images/products/chiffon2.webp", slug: "rose-gold-chiffon-dupatta" },
-  { id: "chiffon-3", name: "Ivory Chiffon Suit", category: "Chiffon", price: "Rs. 7,800", image: "/images/products/chiffon3.webp", slug: "ivory-chiffon-suit" },
-  { id: "chiffon-4", name: "Midnight Chiffon Collection", category: "Chiffon", price: "Rs. 9,100", image: "/images/products/chiffon4.webp", slug: "midnight-chiffon-collection" },
-  { id: "chiffon-5", name: "Pearl Chiffon Dress", category: "Chiffon", price: "Rs. 7,400", image: "/images/products/chiffon5.webp", slug: "pearl-chiffon-dress" },
+  { id: "chiffon-1", name: "Emerald Chiffon Ensemble", category: "Chiffon", fabric: "Chiffon", price: 8500, priceFormatted: "Rs. 8,500", image: "/images/products/chiffon1.webp", slug: "emerald-chiffon-ensemble", sku: "T-C11-26-001", sizes: ["S","M","L","XL"], colors: ["Green","Gold"], discount: 0, campaign: "New Arrival", description: "A stunning emerald chiffon ensemble featuring intricate hand-embroidery and delicate sequin work. Perfect for formal gatherings and festive occasions.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Chiffon | 3m" },{ label: "Bottom Fabric", value: "Raw Silk | 2.5m" },{ label: "Dupatta Fabric", value: "Chiffon | 2.5m" },{ label: "Material", value: "Chiffon" }], careInstructions: ["Dry clean only","Do not bleach","Iron on low heat","Store in a cool dry place"], tags: ["formal","embroidered","chiffon"] },
+  { id: "chiffon-2", name: "Rose Gold Chiffon Dupatta", category: "Chiffon", fabric: "Chiffon", price: 6200, priceFormatted: "Rs. 6,200", image: "/images/products/chiffon2.webp", slug: "rose-gold-chiffon-dupatta", sku: "T-C11-26-002", sizes: ["XS","S","M","L"], colors: ["Pink","Gold"], discount: 30, campaign: "Summer Collection", description: "Elegant rose gold chiffon dupatta set with subtle embellishments. A versatile piece for both casual and semi-formal wear.", fabricDetails: [{ label: "Top Fabric", value: "Printed Chiffon | 3m" },{ label: "Bottom Fabric", value: "Cambric | 2.5m" },{ label: "Dupatta", value: "Chiffon | 2.5m" },{ label: "Material", value: "Chiffon" }], careInstructions: ["Dry clean recommended","Iron on medium heat","Do not wring"], tags: ["casual","dupatta","chiffon"] },
+  { id: "chiffon-3", name: "Ivory Chiffon Suit", category: "Chiffon", fabric: "Chiffon", price: 7800, priceFormatted: "Rs. 7,800", image: "/images/products/chiffon3.webp", slug: "ivory-chiffon-suit", sku: "T-C11-26-003", sizes: ["S","M","L"], colors: ["Ivory","White"], discount: 0, campaign: "Festive Edit", description: "Pure ivory chiffon suit with pearl embellishments and lace trimmings. Ideal for nikah ceremonies and formal dinners.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Chiffon | 3m" },{ label: "Bottom Fabric", value: "Silk | 2.5m" },{ label: "Dupatta", value: "Net | 2.5m" },{ label: "Material", value: "Chiffon" }], careInstructions: ["Dry clean only","Store flat","Avoid direct sunlight"], tags: ["formal","bridal","ivory"] },
+  { id: "chiffon-4", name: "Midnight Chiffon Collection", category: "Chiffon", fabric: "Chiffon", price: 9100, priceFormatted: "Rs. 9,100", image: "/images/products/chiffon4.webp", slug: "midnight-chiffon-collection", sku: "T-C11-26-004", sizes: ["S","M","L","XL"], colors: ["Black","Maroon"], discount: 40, campaign: "Festive Edit", description: "Deep midnight tones with gold thread embroidery. A statement piece for evening events and formal celebrations.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Chiffon | 3m" },{ label: "Bottom Fabric", value: "Raw Silk | 2.5m" },{ label: "Dupatta", value: "Chiffon | 2.5m" },{ label: "Material", value: "Chiffon" }], careInstructions: ["Dry clean only","Do not bleach","Iron inside out"], tags: ["formal","evening","embroidered"] },
+  { id: "chiffon-5", name: "Pearl Chiffon Dress", category: "Chiffon", fabric: "Chiffon", price: 7400, priceFormatted: "Rs. 7,400", image: "/images/products/chiffon5.webp", slug: "pearl-chiffon-dress", sku: "T-C11-26-005", sizes: ["XS","S","M","L","XL"], colors: ["Beige","Ivory"], discount: 0, campaign: "New Arrival", description: "Delicate pearl-adorned chiffon dress with flowing silhouette. Perfect for garden parties and daytime events.", fabricDetails: [{ label: "Top Fabric", value: "Pearl Work Chiffon | 3m" },{ label: "Bottom Fabric", value: "Cambric | 2.5m" },{ label: "Dupatta", value: "Chiffon | 2.5m" },{ label: "Material", value: "Chiffon" }], careInstructions: ["Dry clean only","Handle with care","Do not iron on embellishments"], tags: ["casual","pearl","elegant"] },
 
   // Cotton
-  { id: "cotton-1", name: "Classic White Cotton Kurta", category: "Cotton", price: "Rs. 3,500", image: "/images/products/cotton1.jpg", slug: "classic-white-cotton-kurta" },
-  { id: "cotton-2", name: "Embroidered Cotton Suit", category: "Cotton", price: "Rs. 4,200", image: "/images/products/cotton2.jpg", slug: "embroidered-cotton-suit" },
-  { id: "cotton-3", name: "Printed Cotton Collection", category: "Cotton", price: "Rs. 3,800", image: "/images/products/cotton3.jpg", slug: "printed-cotton-collection" },
-  { id: "cotton-4", name: "Premium Cotton Three-Piece", category: "Cotton", price: "Rs. 5,500", image: "/images/products/cotton4.jpg", slug: "premium-cotton-three-piece" },
+  { id: "cotton-1", name: "Classic White Cotton Kurta", category: "Cotton", fabric: "Cotton", price: 3500, priceFormatted: "Rs. 3,500", image: "/images/products/cotton1.jpg", slug: "classic-white-cotton-kurta", sku: "T-CT1-26-001", sizes: ["S","M","L","XL"], colors: ["White"], discount: 0, campaign: "Summer Collection", description: "A timeless white cotton kurta crafted for everyday elegance. Breathable fabric and clean tailoring make it a wardrobe essential.", fabricDetails: [{ label: "Top Fabric", value: "Pure Cotton | 3m" },{ label: "Bottom Fabric", value: "Cotton | 2.5m" },{ label: "Material", value: "100% Cotton" }], careInstructions: ["Machine wash cold","Iron on medium","Do not bleach"], tags: ["casual","everyday","white"] },
+  { id: "cotton-2", name: "Embroidered Cotton Suit", category: "Cotton", fabric: "Cotton", price: 4200, priceFormatted: "Rs. 4,200", image: "/images/products/cotton2.jpg", slug: "embroidered-cotton-suit", sku: "T-CT1-26-002", sizes: ["S","M","L"], colors: ["Blue","White"], discount: 30, campaign: "Summer Collection", description: "Lightweight embroidered cotton suit with delicate thread work on neckline and borders.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Cotton | 3m" },{ label: "Bottom Fabric", value: "Cotton | 2.5m" },{ label: "Dupatta", value: "Lawn | 2.5m" },{ label: "Material", value: "Cotton" }], careInstructions: ["Machine wash cold","Tumble dry low","Iron on medium heat"], tags: ["casual","embroidered","cotton"] },
+  { id: "cotton-3", name: "Printed Cotton Collection", category: "Cotton", fabric: "Cotton", price: 3800, priceFormatted: "Rs. 3,800", image: "/images/products/cotton3.jpg", slug: "printed-cotton-collection", sku: "T-CT1-26-003", sizes: ["XS","S","M","L","XL"], colors: ["Red","Pink"], discount: 50, campaign: "Summer Collection", description: "Vibrant printed cotton collection featuring bold patterns and comfortable fit for daily wear.", fabricDetails: [{ label: "Top Fabric", value: "Printed Cotton | 3m" },{ label: "Bottom Fabric", value: "Cotton | 2.5m" },{ label: "Material", value: "Cotton" }], careInstructions: ["Machine wash cold","Do not bleach","Iron inside out"], tags: ["casual","printed","colorful"] },
+  { id: "cotton-4", name: "Premium Cotton Three-Piece", category: "Cotton", fabric: "Cotton", price: 5500, priceFormatted: "Rs. 5,500", image: "/images/products/cotton4.jpg", slug: "premium-cotton-three-piece", sku: "T-CT1-26-004", sizes: ["S","M","L","XL"], colors: ["Beige","Green"], discount: 0, campaign: "New Arrival", description: "Premium three-piece cotton suit with detailed embroidery work. Combines comfort with sophistication.", fabricDetails: [{ label: "Top Fabric", value: "Premium Cotton | 3m" },{ label: "Bottom Fabric", value: "Cambric | 2.5m" },{ label: "Dupatta", value: "Cotton Net | 2.5m" },{ label: "Material", value: "Cotton" }], careInstructions: ["Hand wash recommended","Iron on medium heat","Dry in shade"], tags: ["semi-formal","three-piece","premium"] },
 
   // Lawn
-  { id: "lawn-1", name: "Spring Blossom Lawn", category: "Lawn", price: "Rs. 4,800", image: "/images/products/lawn1.jpg", slug: "spring-blossom-lawn" },
-  { id: "lawn-2", name: "Digital Print Lawn Suit", category: "Lawn", price: "Rs. 5,200", image: "/images/products/lawn2.jpg", slug: "digital-print-lawn-suit" },
-  { id: "lawn-3", name: "Embroidered Lawn Collection", category: "Lawn", price: "Rs. 6,100", image: "/images/products/lawn3.jpg", slug: "embroidered-lawn-collection" },
-  { id: "lawn-4", name: "Summer Breeze Lawn", category: "Lawn", price: "Rs. 4,500", image: "/images/products/lawn4.jpg", slug: "summer-breeze-lawn" },
-  { id: "lawn-5", name: "Luxury Lawn Three-Piece", category: "Lawn", price: "Rs. 7,000", image: "/images/products/lawn5.jpg", slug: "luxury-lawn-three-piece" },
+  { id: "lawn-1", name: "Spring Blossom Lawn", category: "Lawn", fabric: "Lawn", price: 4800, priceFormatted: "Rs. 4,800", image: "/images/products/lawn1.jpg", slug: "spring-blossom-lawn", sku: "T-L11-26-001", sizes: ["S","M","L"], colors: ["Pink","Green"], discount: 0, campaign: "Summer Collection", description: "Fresh spring blossom prints on premium lawn fabric. Light, breezy, and perfect for the warmer months.", fabricDetails: [{ label: "Top Fabric", value: "Printed Lawn | 3m" },{ label: "Bottom Fabric", value: "Cambric | 2.5m" },{ label: "Dupatta", value: "Lawn | 2.5m" },{ label: "Material", value: "Lawn" }], careInstructions: ["Machine wash cold","Iron on medium","Do not bleach"], tags: ["casual","spring","printed"] },
+  { id: "lawn-2", name: "Digital Print Lawn Suit", category: "Lawn", fabric: "Lawn", price: 5200, priceFormatted: "Rs. 5,200", image: "/images/products/lawn2.jpg", slug: "digital-print-lawn-suit", sku: "T-L11-26-002", sizes: ["XS","S","M","L","XL"], colors: ["Blue","Ivory"], discount: 30, campaign: "Summer Collection", description: "High-definition digital prints on soft lawn fabric with contrast embroidered borders.", fabricDetails: [{ label: "Top Fabric", value: "Digital Print Lawn | 3m" },{ label: "Bottom Fabric", value: "Dyed Cambric | 2.5m" },{ label: "Dupatta", value: "Printed Lawn | 2.5m" },{ label: "Material", value: "Lawn" }], careInstructions: ["Machine wash cold","Do not wring","Iron on medium heat"], tags: ["casual","digital-print","lawn"] },
+  { id: "lawn-3", name: "Embroidered Lawn Collection", category: "Lawn", fabric: "Lawn", price: 6100, priceFormatted: "Rs. 6,100", image: "/images/products/lawn3.jpg", slug: "embroidered-lawn-collection", sku: "T-L11-26-003", sizes: ["S","M","L"], colors: ["Maroon","Gold"], discount: 0, campaign: "New Arrival", description: "Richly embroidered lawn collection with intricate motifs. A perfect blend of tradition and modernity.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Lawn | 3m" },{ label: "Bottom Fabric", value: "Dyed Cambric | 2.5m" },{ label: "Dupatta", value: "Embroidered Lawn | 2.5m" },{ label: "Material", value: "Lawn" }], careInstructions: ["Hand wash recommended","Iron inside out","Store flat"], tags: ["semi-formal","embroidered","lawn"] },
+  { id: "lawn-4", name: "Summer Breeze Lawn", category: "Lawn", fabric: "Lawn", price: 4500, priceFormatted: "Rs. 4,500", image: "/images/products/lawn4.jpg", slug: "summer-breeze-lawn", sku: "T-L11-26-004", sizes: ["XS","S","M","L"], colors: ["White","Blue"], discount: 40, campaign: "Summer Collection", description: "Light and airy lawn suit in cool summer tones. Designed for maximum comfort during hot days.", fabricDetails: [{ label: "Top Fabric", value: "Lawn | 3m" },{ label: "Bottom Fabric", value: "Cotton | 2.5m" },{ label: "Dupatta", value: "Lawn | 2.5m" },{ label: "Material", value: "Lawn" }], careInstructions: ["Machine wash cold","Tumble dry low","Iron on medium"], tags: ["casual","summer","comfortable"] },
+  { id: "lawn-5", name: "Luxury Lawn Three-Piece", category: "Lawn", fabric: "Lawn", price: 7000, priceFormatted: "Rs. 7,000", image: "/images/products/lawn5.jpg", slug: "luxury-lawn-three-piece", sku: "T-L11-26-005", sizes: ["S","M","L","XL"], colors: ["Green","Beige"], discount: 0, campaign: "Festive Edit", description: "Luxurious three-piece lawn suit with premium finishes and hand-crafted embellishments.", fabricDetails: [{ label: "Top Fabric", value: "Premium Lawn | 3m" },{ label: "Bottom Fabric", value: "Cambric | 2.5m" },{ label: "Dupatta", value: "Silk | 2.5m" },{ label: "Material", value: "Lawn" },{ label: "Add Ons", value: "Embroidered Border | 2m" }], careInstructions: ["Dry clean recommended","Iron on low heat","Handle with care"], tags: ["luxury","three-piece","festive"] },
 
   // Organza
-  { id: "organza-1", name: "Bridal Organza Ensemble", category: "Organza", price: "Rs. 12,500", image: "/images/products/organza1.webp", slug: "bridal-organza-ensemble" },
-  { id: "organza-2", name: "Festive Organza Dress", category: "Organza", price: "Rs. 11,000", image: "/images/products/organza2.webp", slug: "festive-organza-dress" },
-  { id: "organza-3", name: "Hand-Embroidered Organza", category: "Organza", price: "Rs. 15,800", image: "/images/products/organza3.webp", slug: "hand-embroidered-organza" },
-  { id: "organza-4", name: "Gold Dust Organza Suit", category: "Organza", price: "Rs. 13,200", image: "/images/products/organza4.png", slug: "gold-dust-organza-suit" },
-  { id: "organza-5", name: "Royal Organza Collection", category: "Organza", price: "Rs. 14,500", image: "/images/products/organza5.webp", slug: "royal-organza-collection" },
+  { id: "organza-1", name: "Bridal Organza Ensemble", category: "Organza", fabric: "Organza", price: 12500, priceFormatted: "Rs. 12,500", image: "/images/products/organza1.webp", slug: "bridal-organza-ensemble", sku: "T-O11-26-001", sizes: ["S","M","L"], colors: ["Ivory","Gold"], discount: 0, campaign: "Bridal Luxe", description: "Exquisite bridal organza ensemble with heavy hand-embroidery, sequins, and pearl work. A showstopper for your special day.", fabricDetails: [{ label: "Top Fabric", value: "Heavy Embroidered Organza | 3m" },{ label: "Bottom Fabric", value: "Raw Silk | 2.5m" },{ label: "Dupatta", value: "Organza | 2.5m" },{ label: "Material", value: "Organza" },{ label: "Add Ons", value: "Embroidered Organza Border | 2m" }], careInstructions: ["Dry clean only","Store in garment bag","Do not iron directly"], tags: ["bridal","luxury","embroidered"] },
+  { id: "organza-2", name: "Festive Organza Dress", category: "Organza", fabric: "Organza", price: 11000, priceFormatted: "Rs. 11,000", image: "/images/products/organza2.webp", slug: "festive-organza-dress", sku: "T-O11-26-002", sizes: ["XS","S","M","L","XL"], colors: ["Pink","Maroon"], discount: 30, campaign: "Festive Edit", description: "Stunning festive organza dress with mirror work and contrast embroidery. Perfect for Eid and celebrations.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Organza | 3m" },{ label: "Bottom Fabric", value: "Silk | 2.5m" },{ label: "Dupatta", value: "Organza | 2.5m" },{ label: "Material", value: "Organza" }], careInstructions: ["Dry clean only","Iron on low heat","Handle with care"], tags: ["festive","mirror-work","organza"] },
+  { id: "organza-3", name: "Hand-Embroidered Organza", category: "Organza", fabric: "Organza", price: 15800, priceFormatted: "Rs. 15,800", image: "/images/products/organza3.webp", slug: "hand-embroidered-organza", sku: "T-O11-26-003", sizes: ["S","M","L"], colors: ["Gold","Red"], discount: 0, campaign: "Bridal Luxe", description: "Masterfully hand-embroidered organza with zardozi and dabka work. Each piece takes over 200 hours to craft.", fabricDetails: [{ label: "Top Fabric", value: "Hand Embroidered Organza | 3m" },{ label: "Bottom Fabric", value: "Jamawar | 2.5m" },{ label: "Dupatta", value: "Organza | 2.5m" },{ label: "Material", value: "Organza" }], careInstructions: ["Dry clean only","Store flat in tissue","Do not spray perfume directly"], tags: ["luxury","hand-embroidered","zardozi"] },
+  { id: "organza-4", name: "Gold Dust Organza Suit", category: "Organza", fabric: "Organza", price: 13200, priceFormatted: "Rs. 13,200", image: "/images/products/organza4.png", slug: "gold-dust-organza-suit", sku: "T-O11-26-004", sizes: ["S","M","L","XL"], colors: ["Gold","Beige"], discount: 50, campaign: "Festive Edit", description: "Shimmering gold dust organza suit with tilla and kora work. A regal piece for formal celebrations.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Organza | 3m" },{ label: "Bottom Fabric", value: "Raw Silk | 2.5m" },{ label: "Dupatta", value: "Net | 2.5m" },{ label: "Material", value: "Organza" }], careInstructions: ["Dry clean only","Iron on low heat","Store carefully"], tags: ["formal","gold","tilla-work"] },
+  { id: "organza-5", name: "Royal Organza Collection", category: "Organza", fabric: "Organza", price: 14500, priceFormatted: "Rs. 14,500", image: "/images/products/organza5.webp", slug: "royal-organza-collection", sku: "T-O11-26-005", sizes: ["XS","S","M","L","XL"], colors: ["Maroon","Gold"], discount: 0, campaign: "Bridal Luxe", description: "Royal organza collection with heavy embellishments and luxurious finishing. Designed for the most special occasions.", fabricDetails: [{ label: "Top Fabric", value: "Heavy Embroidered Organza | 3m" },{ label: "Bottom Fabric", value: "Raw Silk | 2.5m" },{ label: "Dupatta", value: "Embroidered Organza | 2.5m" },{ label: "Material", value: "Organza" }], careInstructions: ["Dry clean only","Professional pressing recommended","Store in dust bag"], tags: ["bridal","royal","luxury"] },
 
   // Silk
-  { id: "silk-1", name: "Pure Silk Formal Wear", category: "Silk", price: "Rs. 18,000", image: "/images/products/silk1.jpg", slug: "pure-silk-formal-wear" },
-  { id: "silk-2", name: "Silk Banarasi Dupatta Set", category: "Silk", price: "Rs. 16,500", image: "/images/products/silk2.jpg", slug: "silk-banarasi-dupatta-set" },
-  { id: "silk-3", name: "Traditional Silk Suit", category: "Silk", price: "Rs. 14,000", image: "/images/products/silk3.jpg", slug: "traditional-silk-suit" },
-  { id: "silk-4", name: "Luxury Silk Three-Piece", category: "Silk", price: "Rs. 20,000", image: "/images/products/silk4.jpg", slug: "luxury-silk-three-piece" },
+  { id: "silk-1", name: "Pure Silk Formal Wear", category: "Silk", fabric: "Silk", price: 18000, priceFormatted: "Rs. 18,000", image: "/images/products/silk1.jpg", slug: "pure-silk-formal-wear", sku: "T-S11-26-001", sizes: ["S","M","L","XL"], colors: ["Red","Gold"], discount: 0, campaign: "Festive Edit", description: "Luxurious pure silk formal wear with intricate gold thread embroidery. A timeless piece for weddings and formal events.", fabricDetails: [{ label: "Top Fabric", value: "Pure Silk | 3m" },{ label: "Bottom Fabric", value: "Silk | 2.5m" },{ label: "Dupatta", value: "Silk | 2.5m" },{ label: "Material", value: "Pure Silk" }], careInstructions: ["Dry clean only","Do not bleach","Iron on low heat","Store in silk bag"], tags: ["formal","pure-silk","luxury"] },
+  { id: "silk-2", name: "Silk Banarasi Dupatta Set", category: "Silk", fabric: "Silk", price: 16500, priceFormatted: "Rs. 16,500", image: "/images/products/silk2.jpg", slug: "silk-banarasi-dupatta-set", sku: "T-S11-26-002", sizes: ["S","M","L"], colors: ["Maroon","Gold"], discount: 40, campaign: "Bridal Luxe", description: "Handwoven Banarasi silk dupatta set with traditional motifs. Heritage craftsmanship meets contemporary design.", fabricDetails: [{ label: "Top Fabric", value: "Silk | 3m" },{ label: "Bottom Fabric", value: "Raw Silk | 2.5m" },{ label: "Dupatta", value: "Banarasi Silk | 2.5m" },{ label: "Material", value: "Silk" }], careInstructions: ["Dry clean only","Do not wring","Iron on lowest setting"], tags: ["banarasi","traditional","silk"] },
+  { id: "silk-3", name: "Traditional Silk Suit", category: "Silk", fabric: "Silk", price: 14000, priceFormatted: "Rs. 14,000", image: "/images/products/silk3.jpg", slug: "traditional-silk-suit", sku: "T-S11-26-003", sizes: ["XS","S","M","L","XL"], colors: ["Green","Blue"], discount: 0, campaign: "Festive Edit", description: "Classic traditional silk suit with handcrafted embroidery. Perfect for festive occasions and family gatherings.", fabricDetails: [{ label: "Top Fabric", value: "Embroidered Silk | 3m" },{ label: "Bottom Fabric", value: "Silk | 2.5m" },{ label: "Dupatta", value: "Silk | 2.5m" },{ label: "Material", value: "Silk" }], careInstructions: ["Dry clean only","Handle with care","Iron inside out"], tags: ["traditional","festive","embroidered"] },
+  { id: "silk-4", name: "Luxury Silk Three-Piece", category: "Silk", fabric: "Silk", price: 20000, priceFormatted: "Rs. 20,000", image: "/images/products/silk4.jpg", slug: "luxury-silk-three-piece", sku: "T-S11-26-004", sizes: ["S","M","L","XL"], colors: ["Black","Gold"], discount: 70, campaign: "Bridal Luxe", description: "The pinnacle of luxury — a three-piece silk suit with heavy hand-embroidery and premium finishing. For those who demand the very best.", fabricDetails: [{ label: "Top Fabric", value: "Heavy Embroidered Silk | 3m" },{ label: "Bottom Fabric", value: "Jamawar | 2.5m" },{ label: "Dupatta", value: "Silk | 2.5m" },{ label: "Material", value: "Pure Silk" },{ label: "Add Ons", value: "Embroidered Border | 2m" }], careInstructions: ["Dry clean only","Professional care recommended","Store in garment bag","Keep away from moisture"], tags: ["luxury","bridal","premium"] },
 ];
 
 export const testimonials = [
-  {
-    name: "Ayesha Khan",
-    location: "Lahore",
-    text: "Absolutely love the quality! The chiffon collection is stunning and the stitching is flawless. Will definitely order again.",
-    rating: 5,
-  },
-  {
-    name: "Fatima Noor",
-    location: "Karachi",
-    text: "Best online clothing experience. The fabric quality exceeded my expectations. Their WhatsApp support is super responsive!",
-    rating: 5,
-  },
-  {
-    name: "Sana Malik",
-    location: "Islamabad",
-    text: "Beautiful designs at reasonable prices. The lawn collection is perfect for summer. Highly recommended!",
-    rating: 4,
-  },
+  { name: "Ayesha Khan", location: "Lahore", text: "Absolutely love the quality! The chiffon collection is stunning and the stitching is flawless. Will definitely order again.", rating: 5 },
+  { name: "Fatima Noor", location: "Karachi", text: "Best online clothing experience. The fabric quality exceeded my expectations. Their WhatsApp support is super responsive!", rating: 5 },
+  { name: "Sana Malik", location: "Islamabad", text: "Beautiful designs at reasonable prices. The lawn collection is perfect for summer. Highly recommended!", rating: 4 },
 ];
 
 export function getWhatsAppLink(productName?: string): string {
@@ -79,4 +92,8 @@ export function getWhatsAppLink(productName?: string): string {
     return `${baseUrl}?text=${encodeURIComponent(`Hi! I'm interested in "${productName}". Please share the details.`)}`;
   }
   return `${baseUrl}?text=${encodeURIComponent("Hi! I'm interested in your clothing collection. Please share the details.")}`;
+}
+
+export function getProductBySlug(slug: string): Product | undefined {
+  return products.find((p) => p.slug === slug);
 }
